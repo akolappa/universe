@@ -64,8 +64,9 @@ public class StarRouteSolution {
         printAnswer(graphFinder.findShortestPathDuration(starB,starB));
 
         System.out.println("10: Determine all different routes starting at Sirius and ending at Sirius with an over traveltime less than 30.");
-        System.out.println("Solution :");
-        graphFinder.findPathsWithTravelTime(starC,starC,30).forEach(e -> printAnswer(e));
+        List<List<String>> paths = graphFinder.findPathsWithTravelTime(starC,starC,30);
+        System.out.println("Solution : "+paths.size()+" routes");
+        paths.forEach(p -> printAnswer(p));
         System.out.println();
 
     }
