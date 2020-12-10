@@ -34,4 +34,4 @@ jobs:
       with:
         java-version: 1.8
     - name: Install and run test with Maven
-      run: mvn clean install -DskipTests --file pom.xml
+      run: mvn clean install --file pom.xml
