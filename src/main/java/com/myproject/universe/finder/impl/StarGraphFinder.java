@@ -5,14 +5,11 @@ import com.myproject.universe.finder.GraphFinder;
 import com.myproject.universe.representation.Star;
 import com.myproject.universe.representation.StarEdge;
 import com.myproject.universe.utils.StarGraphCreater;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 /**
- * This class is the implementation of graphfinder which is a variation of star graph finder.
+ * This class is the implementation of {@link GraphFinder} which is a variation of star graph finder.
  */
 
 public class StarGraphFinder implements GraphFinder {
@@ -32,23 +29,25 @@ public class StarGraphFinder implements GraphFinder {
     }
 
     /**
-     * @param stars
-     * @return Integer
-     * <p>
+     *
+     * @param stars List of Stars path
+     * @return Integer The distance of the path
+     *
      * This method takes the list of stars and returns the distance of the star path and if there is no path
      * then returns zero.
      */
     @Override
     public Integer findDistanceOfPath(Star ... stars) {
-        return distance(Arrays.asList(stars),graph);
+        return distance(Arrays.asList(stars));
     }
 
     /**
-     * @param source
-     * @param target
-     * @param stops
+     *
+     * @param source starting star
+     * @param target ending star
+     * @param stops number of stops
      * @return List of possible paths
-     * <p>
+     *
      * This method finds the paths between 2 stars with maximum of specified stops.
      */
     @Override
@@ -57,16 +56,17 @@ public class StarGraphFinder implements GraphFinder {
         this.currentPath = new ArrayList<>();
         this.simplePaths = new ArrayList<>();
         findPathsWithMax(source,target,0);
-        simplePaths.sort((l1, l2) -> l1.size() - l2.size());
+        simplePaths.sort(Comparator.comparingInt(List::size));
         return simplePaths;
     }
 
     /**
-     * @param source
-     * @param target
-     * @param stops
+     *
+     * @param source starting star
+     * @param target ending star
+     * @param stops number of stops
      * @return List of possible paths
-     * <p>
+     *
      * This method finds the paths between 2 stars with exactly number of stops between them
      */
     @Override
@@ -79,11 +79,12 @@ public class StarGraphFinder implements GraphFinder {
     }
 
     /**
-     * @param source
-     * @param target
-     * @param travelTime
+     *
+     * @param source starting star
+     * @param target ending star
+     * @param travelTime travel time in hours
      * @return List of possible paths
-     * <p>
+     *
      * This method finds the paths between 2 stars with travel time less than specified
      */
     @Override
@@ -92,15 +93,16 @@ public class StarGraphFinder implements GraphFinder {
         this.currentPath = new ArrayList<>();
         this.simplePaths = new ArrayList<>();
         findPathsWithTravelTime(source,target,0);
-        simplePaths.sort((l1, l2) -> l1.size() - l2.size());
+        simplePaths.sort(Comparator.comparingInt(List::size));
         return simplePaths;
     }
 
     /**
-     * @param source
-     * @param target
+     *
+     * @param source starting star
+     * @param target ending star
      * @return the minimum hours of travel
-     * <p>
+     *
      * This method finds the minimum hours to travel between 2 stars.
      */
     @Override
@@ -109,12 +111,12 @@ public class StarGraphFinder implements GraphFinder {
         return computeMinimumDistance(source,target);
     }
 
-    private Integer distance(List<Star> stars, Graph<Star> graph){
+    private Integer distance(List<Star> stars){
         Star source = graph.findNode(stars.get(0));
         Set<Star> childStars;
 
-        Integer totalWeight = 0;
-        Boolean isRoute = Boolean.TRUE;
+        int totalWeight = 0;
+        boolean isRoute = Boolean.TRUE;
 
         for (Star star : stars.subList(1,stars.size())) {
             childStars = source.getChildrens();

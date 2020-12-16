@@ -8,8 +8,8 @@ public interface GraphFinder {
 
     /**
      *
-     * @param stars
-     * @return Integer
+     * @param stars List of Stars path
+     * @return Integer The distance of the path
      *
      * This method takes the list of stars and returns the distance of the star path and if there is no path
      * then returns zero.
@@ -19,9 +19,9 @@ public interface GraphFinder {
 
     /**
      *
-     * @param source
-     * @param target
-     * @param stops
+     * @param source starting star
+     * @param target ending star
+     * @param stops number of stops
      * @return List of possible paths
      *
      * This method finds the paths between 2 stars with maximum of specified stops.
@@ -31,9 +31,9 @@ public interface GraphFinder {
 
     /**
      *
-     * @param source
-     * @param target
-     * @param stops
+     * @param source starting star
+     * @param target ending star
+     * @param stops number of stops
      * @return List of possible paths
      *
      * This method finds the paths between 2 stars with exactly number of stops between them
@@ -42,9 +42,9 @@ public interface GraphFinder {
 
     /**
      *
-     * @param source
-     * @param target
-     * @param travelTime
+     * @param source starting star
+     * @param target ending star
+     * @param travelTime travel time in hours
      * @return List of possible paths
      *
      * This method finds the paths between 2 stars with travel time less than specified
@@ -53,8 +53,8 @@ public interface GraphFinder {
 
     /**
      *
-     * @param source
-     * @param target
+     * @param source starting star
+     * @param target ending star
      * @return the minimum hours of travel
      *
      * This method finds the minimum hours to travel between 2 stars.
